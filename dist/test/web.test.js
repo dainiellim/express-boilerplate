@@ -19,9 +19,6 @@ describe('Express App', () => {
     it('should respond with a string', () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app_1.default).get('/');
         (0, chai_1.expect)(response.status).to.equal(200);
-        (0, chai_1.expect)(response.text).to.equal('Hello, this is a simple Express.js server1!');
+        (0, chai_1.expect)(response.text).to.equal('Hello, this is a simple Express.js server!');
     }));
-    after(() => {
-        process.exit(0);
-    });
 });

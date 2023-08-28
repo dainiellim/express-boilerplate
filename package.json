@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "build": "tsc --project tsconfig.json",
-    "start": "node dist/src/app.js",
+    "start": "tsc --project tsconfig.json && node dist/src/app.js",
     "test": "npm run build && mocha dist/test/*"
   },
   "keywords": [],
