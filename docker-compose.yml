@@ -1,0 +1,29 @@
+version: "3"
+services:
+  app:
+    build: .
+    command: node ./project/dist/app.js
+    environment:
+      NODE_ENV: development
+    depends_on:
+      - mongodb
+    ports:
+      - "8081:4000"
+    volumes:
+      - .:/app
+      - ./node_modules:/home/nodejs/node_modules
+      - ./project/.env:/app/.env
+  nginx:
+    image: nginx:latest
+    links:
+      - app
+    ports:
+      - "80:80"
+    volumes:
+      - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+
+  mongodb:
+    image: mongo:4
+    command: mongod
+    ports:
+      - "27017:27017"

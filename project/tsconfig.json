@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "CommonJS",
+    "outDir": "dist",
+    "strict": true,
+    "esModuleInterop": true,
+    "types": [
+      "node",
+      "mocha"
+    ]
+  },
+  "include": [
+    "/src/**/*.ts",
+    "test/**/*.ts"
+  ]
+}
