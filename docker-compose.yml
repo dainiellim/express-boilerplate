@@ -32,7 +32,6 @@ services:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: password
       MONGO_INITDB_DATABASE: sample_db
-
   postgres:
     image: postgres:14-alpine
     ports:
