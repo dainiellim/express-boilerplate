@@ -1,8 +1,10 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import webRoutes from './routes/web';
+import dbConnect from '../database/db';
 
 dotenv.config();
+dbConnect();
 
 const app = express();
 

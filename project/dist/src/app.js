@@ -6,9 +6,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv_1 = __importDefault(require("dotenv"));
 const express_1 = __importDefault(require("express"));
 const web_1 = __importDefault(require("./routes/web"));
+const db_1 = __importDefault(require("../database/db"));
 dotenv_1.default.config();
+(0, db_1.default)();
 const app = (0, express_1.default)();
-console.log(process.env.PORT);
 const PORT = process.env.PORT || 3000; // Use PORT from .env or default to 3000
 app.use('/', web_1.default);
 app.listen(PORT, () => {
