@@ -10,8 +10,6 @@ const mongoDbName = process.env.DB_NAME;
 
 const uri = `mongodb://${mongoUser}:${mongoPassword}@${mongoHost}/${mongoDbName}?retryWrites=true&w=majority`;
 
-console.log(uri);
-
 const connectDB = () => {
     mongoose.connect(uri)
         .then(() => {
