@@ -1,23 +1,13 @@
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
+import mongo from './mongo';
+import mysql from './mysql';
+import pg from './pg';
 
-dotenv.config();
-
-const mongoUser = process.env.DB_USER;
-const mongoPassword = process.env.DB_PASSWORD;
-const mongoHost = process.env.DB_HOST;
-const mongoDbName = process.env.DB_NAME;
-
-const uri = `mongodb://${mongoUser}:${mongoPassword}@${mongoHost}/${mongoDbName}?retryWrites=true&w=majority`;
+const databaseConnection = process.env.DB_CONNECTION || mongo;
 
 const connectDB = () => {
-    mongoose.connect(uri)
-        .then(() => {
-            console.log('Connected to MongoDB');
-        })
-        .catch((err) => {
-            console.error('Error connecting to MongoDB:', err);
-        });
+    if (databaseConnection === 'mongo') mongo();
+    if (databaseConnection === 'mysql') mysql();
+    if (databaseConnection === 'pg') pg();
 };
 
 export default connectDB;
