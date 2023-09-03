@@ -1,13 +1,12 @@
 import express from 'express';
+import User from '../models/user.model';
+import catchAsync from '../utils/catchAsync';
+import userController from '../controllers/user.controller'
+
+
 const router = express.Router();
 
-router.get('/users/', (req, res) => {
-    res.json({
-        message: {
-            message: 'This is user list'
-        }
-    });
-});
+router.get('/users/', userController.store);
 router.get('/users/:id', (req, res) => {
     res.json({
         message: {
@@ -38,5 +37,4 @@ router.delete('/users/:id', (req, res) => {
     });
 });
 
-// Export the router
 export default router;
