@@ -2,3 +2,4 @@
 /.env
 /project/node_modules
 /project/.env
+/project/error.log

@@ -12,28 +12,38 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const promise_1 = __importDefault(require("mysql2/promise")); // Import the mysql2/promise package
-const mongoUser = process.env.DB_USER;
-const mongoPassword = process.env.DB_PASSWORD;
-const mongoHost = process.env.DB_HOST;
-const mongoDbName = process.env.DB_NAME;
-// Create a function to establish the database connection
-function connectToDatabase() {
+const mongoose_1 = __importDefault(require("mongoose"));
+const bcrypt_1 = __importDefault(require("bcrypt"));
+const userSchema = new mongoose_1.default.Schema({
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    password: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    role: {}
+}, {
+    timestamps: true
+});
+userSchema.pre('save', function (next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const connection = yield promise_1.default.createConnection({
-                host: 'your_host',
-                user: 'your_user',
-                password: 'your_password',
-                database: 'your_database', // Replace with your database name
-            });
-            console.log('Connected to the database');
-            return connection;
+            if (!this.isModified('password')) {
+                return next();
+            }
+            const salt = yield bcrypt_1.default.genSalt(10);
+            const hashedPassword = yield bcrypt_1.default.hash(this.password, salt);
+            this.password = hashedPassword;
+            return next();
         }
         catch (error) {
-            console.error('Error connecting to the database:');
-            throw error;
+            return next(error);
         }
     });
-}
-exports.default = connectToDatabase;
+});
+const UserModel = mongoose_1.default.model('User', userSchema);
+exports.default = UserModel;
