@@ -1,12 +1,12 @@
 import express from 'express';
-import User from '../models/user.model';
-import catchAsync from '../utils/catchAsync';
-import userController from '../controllers/user.controller'
+import userController from '../controllers/user.controller';
+import authController from '../controllers/authentication.controller';
 
 
 const router = express.Router();
 
-router.get('/users/', userController.store);
+router.post('/auth/', authController.login)
+router.get('/users/', userController.index);
 router.get('/users/:id', (req, res) => {
     res.json({
         message: {
@@ -14,13 +14,7 @@ router.get('/users/:id', (req, res) => {
         }
     });
 });
-router.post('/users/', (req, res) => {
-    res.json({
-        message: {
-            message: 'This user is created'
-        }
-    });
-});
+router.post('/users/', userController.store);
 router.put('/users/:id', (req, res) => {
     res.json({
         message: {
