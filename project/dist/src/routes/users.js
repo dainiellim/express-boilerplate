@@ -5,8 +5,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const user_controller_1 = __importDefault(require("../controllers/user.controller"));
+const authentication_controller_1 = __importDefault(require("../controllers/authentication.controller"));
 const router = express_1.default.Router();
-router.get('/users/', user_controller_1.default.store);
+router.post('/auth/', authentication_controller_1.default.login);
+router.get('/users/', user_controller_1.default.index);
 router.get('/users/:id', (req, res) => {
     res.json({
         message: {
@@ -14,13 +16,7 @@ router.get('/users/:id', (req, res) => {
         }
     });
 });
-router.post('/users/', (req, res) => {
-    res.json({
-        message: {
-            message: 'This user is created'
-        }
-    });
-});
+router.post('/users/', user_controller_1.default.store);
 router.put('/users/:id', (req, res) => {
     res.json({
         message: {

@@ -11,6 +11,7 @@ const db_1 = __importDefault(require("../database/db"));
 const errorHandler_1 = __importDefault(require("./middleware/errorHandler"));
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 3000;
+app.use(express_1.default.json());
 app.use('/', web_1.default);
 app.use(errorHandler_1.default);
 app.listen(PORT, () => {

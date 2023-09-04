@@ -13,11 +13,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const user_model_1 = __importDefault(require("../models/user.model"));
-const store = catchAsync((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    yield user_model_1.default.create({ email: "email", password: "123" });
+const catchAsync_1 = __importDefault(require("../utils/catchAsync"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const store = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const authHeader = req.headers['authorization'] || '';
+    const token = authHeader.replace('Bearer ', '');
+    const verified = jsonwebtoken_1.default.verify(token, process.env.JWT_KEY || '');
+    yield user_model_1.default.create({ email: req.body.email, password: req.body.password });
     const users = yield user_model_1.default.find();
     res.json(users);
 }));
+const index = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(req.body);
+    // const verified = jwt.verify(token, jwtSecretKey);
+    const users = yield user_model_1.default.find();
+    res.json(users);
+});
 exports.default = {
-    store
+    store,
+    index
 };
