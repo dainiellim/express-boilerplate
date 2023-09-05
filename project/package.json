@@ -2,10 +2,10 @@
   "name": "express-boilerplate",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "app.ts",
   "scripts": {
     "build": "tsc --project tsconfig.json",
-    "start": "tsc --project tsconfig.json && node dist/src/app.js",
+    "start": "ts-node src/app.ts",
     "test": "npm run build && mocha dist/test/*"
   },
   "keywords": [],
@@ -18,14 +18,15 @@
     "@types/mocha": "^10.0.1",
     "@types/mongoose": "^5.11.97",
     "@types/pg": "^8.10.2",
-    "nodemon": "^3.0.1",
-    "supertest": "^6.3.3",
-    "typescript": "^5.2.2",
     "bcrypt": "^5.1.1",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "mysql2": "^3.6.0",
+    "nodemon": "^3.0.1",
     "pg": "^8.11.3",
+    "supertest": "^6.3.3",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2",
     "winston": "^3.10.0"
   },
   "devDependencies": {

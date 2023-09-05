@@ -1,6 +1,6 @@
 /node_modules
 /.env
 /project/node_modules
-/project/dist/*
+/project/dist
 /project/.env
 /project/error.log
