@@ -1,6 +1,5 @@
 import express from 'express';
-import userController from '../controllers/user.controller';
-import authController from '../controllers/authentication.controller';
+import { login, index, store, show, update } from '../controllers/index'
 import authenticationMiddleware from '../middleware/authMiddleware';
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
@@ -8,27 +7,11 @@ import jwt from 'jsonwebtoken';
 
 const router = express.Router();
 
+router.post('/auth/', login)
 
-
-router.post('/auth/', authController.login)
-
-router.get('/users/', authenticationMiddleware, userController.index);
-router.post('/users/', authenticationMiddleware, userController.store);
-router.get('/users/:id', authenticationMiddleware, userController.show);
-// router.put('/users/:id', (req, res) => {
-//     res.json({
-//         message: {
-//             message: 'This user is updated'
-//         }
-//     });
-// });
-
-// router.delete('/users/:id', (req, res) => {
-//     res.json({
-//         message: {
-//             message: 'This user is deleted'
-//         }
-//     });
-// });
+router.get('/users/', authenticationMiddleware, index);
+router.post('/users/', authenticationMiddleware, store);
+router.get('/users/:id', authenticationMiddleware, show);
+router.put('/users/:id', authenticationMiddleware, update);
 
 export default router;

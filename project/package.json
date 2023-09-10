@@ -5,7 +5,7 @@
   "main": "app.ts",
   "scripts": {
     "build": "tsc --project tsconfig.json",
-    "start": "ts-node src/app.ts",
+    "start": "nodemon src/app.ts",
     "test": "npm run build && mocha dist/test/*"
   },
   "keywords": [],

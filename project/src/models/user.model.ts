@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
+import { NextFunction } from 'express';
 
 const userSchema = new mongoose.Schema(
     {
@@ -23,6 +24,7 @@ const userSchema = new mongoose.Schema(
 );
 
 userSchema.pre('save', async function (next) {
+    console.log(123)
     try {
         if (!this.isModified('password')) {
             return next();
@@ -35,6 +37,13 @@ userSchema.pre('save', async function (next) {
         return next(error);
     }
 });
+
+
+// userSchema.pre('updateOne', async function (next) {
+//     const docToUpdate = await this.model.findOne(this.getUpdate())
+//     return next()
+// })
+
 
 const UserModel = mongoose.model('User', userSchema);
 

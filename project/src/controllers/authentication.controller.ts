@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import catchAsync from '../utils/catchAsync';
 
-const login = catchAsync(async (req: Request, res: Response) => {
+export const login = catchAsync(async (req: Request, res: Response) => {
     try {
         const { email, password } = req.body;
         let user = await User.findOne({ email: email });
@@ -30,7 +30,3 @@ const login = catchAsync(async (req: Request, res: Response) => {
         res.status(400).send("error");
     }
 })
-
-export default {
-    login
-}
