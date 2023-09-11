@@ -1,10 +1,9 @@
 import User from '../models/user.model';
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import catchAsync from '../utils/catchAsync';
 
-export const login = catchAsync(async (req: Request, res: Response) => {
+export const login = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { email, password } = req.body;
         let user = await User.findOne({ email: email });
@@ -26,7 +25,8 @@ export const login = catchAsync(async (req: Request, res: Response) => {
             return res.status(400).json({ message: "Invalid Credentials" });
         });
     } catch (err) {
+        next(err);
         res.json(req.body);
         res.status(400).send("error");
     }
-})
+}

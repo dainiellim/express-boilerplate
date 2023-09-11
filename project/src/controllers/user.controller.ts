@@ -6,35 +6,44 @@ export const store = async (req: Request, res: Response, next: NextFunction) => 
     try {
         const user = await User.create({ email: req.body.email, password: req.body.password });
         res.json(user);
-    } catch (Error) {
-        next(Error);
+    } catch (err) {
+        next(err);
         res.status(400).json({ message: "Unable to create user" });
     }
-};
+}
 
-export const index = async (req: Request, res: Response) => {
+export const index = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const q = req.query.q;
+        const query = {
+            email: new RegExp(`${q}`)
+        };
 
-    const q = req.query.q;
-    const query = {
-        email: new RegExp(`${q}`)
-    };
+        const users = await User.find(query);
 
-    const users = await User.find(query);
-
-    console.log(query);
-    res.json(users);
-};
-
-export const show = async (req: Request, res: Response) => {
-    const id = req.params.id;
-    const user = await User.findOne({
-        _id: id
-    });
-    if (!user) {
-        res.status(404).json({ message: "User not found!" });
+        console.log(query);
+        res.json(users);
+    } catch (err) {
+        next(err);
+        res.status(400).json({ message: "Something Went Wrong!" });
     }
-    res.json(user);
-};
+}
+
+export const show = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const id = req.params.id;
+        const user = await User.findOne({
+            _id: id
+        });
+        if (!user) {
+            res.status(404).json({ message: "User not found!" });
+        }
+        res.json(user);
+    } catch (err) {
+        next(err);
+        res.status(400).json({ message: "Something Went Wrong!" });
+    }
+}
 
 export const update = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -53,8 +62,8 @@ export const update = async (req: Request, res: Response, next: NextFunction) =>
         }
 
         res.json(user);
-    } catch (Error) {
-        next(Error);
+    } catch (err) {
+        next(err);
         res.status(400).json({ message: "Unable to update user!" });
     }
-};
+}
