@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 import { NextFunction } from 'express';
 
-const userSchema = new mongoose.Schema(
+const schema = new mongoose.Schema(
     {
         email: {
             type: String,
@@ -23,7 +23,7 @@ const userSchema = new mongoose.Schema(
     }
 );
 
-userSchema.pre('save', async function (next) {
+schema.pre('save', async function (next) {
     console.log(123)
     try {
         if (!this.isModified('password')) {
@@ -45,6 +45,6 @@ userSchema.pre('save', async function (next) {
 // })
 
 
-const UserModel = mongoose.model('User', userSchema);
+const UserModel = mongoose.model('User', schema);
 
 export default UserModel;
