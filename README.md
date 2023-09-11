@@ -5,4 +5,5 @@ This is a ready-to-use boilerplate and starter project designed to expedite the 
 # Quick Start
 
 git clone https://github.com/dainiellim/express-boilerplate.git
+
 docker-compose up -d
