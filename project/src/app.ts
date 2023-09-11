@@ -4,7 +4,6 @@ dotenv.config();
 import express from 'express';
 import webRoutes from './routes/web';
 import dbConnect from '../database/db';
-import catchAsync from './utils/catchAsync';
 import errorHandler from './middleware/errorHandler';
 
 const app = express();

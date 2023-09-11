@@ -1,9 +1,6 @@
 import express from 'express';
 import { login, index, store, show, update } from '../controllers/index'
 import authenticationMiddleware from '../middleware/authMiddleware';
-import { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
-
 
 const router = express.Router();
 
