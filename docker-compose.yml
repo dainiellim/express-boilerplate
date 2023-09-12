@@ -1,8 +1,9 @@
 version: "3"
 services:
   app:
-    build: .
-    command: node ./project/dist/app.js
+    build: 
+      context: .
+      dockerfile: Dockerfile
     environment:
       NODE_ENV: development
     depends_on:
@@ -43,7 +44,20 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_USER: root
       POSTGRES_DB: sample_db
-
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: 'rabbitmq'
+    environment:
+      RABBITMQ_DEFAULT_USER: root
+      RABBITMQ_DEFAULT_PASS: password
+    ports:
+        - 5672:5672
+        - 15672:15672
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq/
+      - rabbitmq-log:/var/log/rabbitmq
 volumes:
   mongodb-data:
   postgres-data:
+  rabbitmq-data:
+  rabbitmq-log:
