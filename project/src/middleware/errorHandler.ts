@@ -6,12 +6,6 @@ const errorHandler = (err: any, req: Request, res: Response, next: NextFunction)
     const errMsg = err.message || 'Something went wrong';
     logger.error('An error occurred:', err);
     next();
-    // res.status(errStatus).json({
-    //     success: false,
-    //     status: errStatus,
-    //     message: errMsg,
-    //     stack: process.env.NODE_ENV === 'development' ? err.stack : {}
-    // })
 }
 
 export default errorHandler
