@@ -3,7 +3,8 @@ import { Request, Response, NextFunction } from 'express';
 
 export const store = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const user = await User.create({ email: req.body.email, password: req.body.password });
+        const { email, password } = req.body;
+        const user = await User.create({ email: email, password: password });
         res.json(user);
     } catch (err) {
         next(err);
@@ -47,13 +48,20 @@ export const show = async (req: Request, res: Response, next: NextFunction) => {
 export const update = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const id = req.params.id;
-        // let user = await User.updateOne({
-        //     _id: id
-        // });
-        const user = await User.updateOne({
-            _id: id
-        },
-            { $set: { email: req.body.email, password: req.body.password } }
+
+        const { email, password } = req.body;
+
+        const user = await User.findOneAndUpdate(
+            {
+                _id: id
+            },
+            {
+                $set: {
+                    email: email,
+                    password: password
+                }
+            },
+            { new: true }
         );
 
         if (!user) {
